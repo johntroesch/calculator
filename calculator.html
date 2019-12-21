@@ -6,33 +6,148 @@
 </head>
 <body>
     <div class="container">
-        <div class="screen"></div>
+        <div class="screen" id='screen'></div>
         <div class = "numRow" id="topRow">
-            <div class="fBtn">+</div>
-            <div class="fBtn">-</div>
-            <div class="fBtn">*</div>
-            <div class="fBtn">/</div>
-         </div>
-        <div class="numRow">
-            <div class="numBtn">1</div>
-            <div class="numBtn">2</div>
-            <div class="numBtn">3</div>
+            <button class="fBtn" onclick="addPlusbtn()">+</button>
+            <button class="fBtn" onclick="addMinusbtn()">-</button>
+            <button class="fBtn" onclick="addDivbtn()">*</button>
+            <button class="fBtn" onclick="addMultbtn()">/</button>
         </div>
         <div class="numRow">
-                <div class="numBtn">4</div>
-                <div class="numBtn">5</div>
-                <div class="numBtn">6</div>
+            <button class="numBtn" onclick="addNbtn(1)">1</button>
+            <button class="numBtn" onclick="addNbtn(2)">2</button>
+            <button class="numBtn" onclick="addNbtn(3)">3</button>
         </div>
         <div class="numRow">
-                <div class="numBtn">7</div>
-                <div class="numBtn">8</div>
-                <div class="numBtn">9</div>
+                <button class="numBtn" onclick="addNbtn(4)">4</button>
+                <button class="numBtn" onclick="addNbtn(5)">5</button>
+                <button class="numBtn" onclick="addNbtn(6)">6</button>
+        </div>
+        <div class="numRow">
+                <button class="numBtn" onclick="addNbtn(7)">7</button>
+                <button class="numBtn" onclick="addNbtn(8)">8</button>
+                <button class="numBtn" onclick="addNbtn(9)">9</button>
         </div>
         <div class="numrow" id="bottomRow">
-            <div class="fBtn" id="equals">=</div>
-            <div class="fBtn" id="clear">clear</div>
+            <button class="fBtn" id="clear">clear</button>
+            <button class="numBtn" onclick="addNbtn(0)">0</button>
+            <button class="fBtn" id="equals">=</button>
         </div>
              
-    </div>
+    </button>
 </body>
+<script>
+    
+    let lcd = document.getElementById('screen');
+    let fnBtn = document.getElementsByClassName('fBtn');
+    let nmbrBtn = document.getElementsByClassName('numBtn');
+    let eq = document.getElementById('equals');
+    let plus = document.getElementById('addPlusbtn')
+    let num = 'start';
+    let numString = '';
+    let answer='';
+    let prior = 'none';
+    let clear = 0;
+    let firstNum = 0;
+    let secNum = 0;
+    let screenString;
+
+    eq.addEventListener('click', operatorChart);
+
+    
+    function operatorChart(){
+      if (prior == 'plus'){
+            answer = firstNum + secNum
+        } else if (prior == 'minus') {
+            answer = firstNum - secNum
+        } else if (prior == 'division') {
+            answer = firstNum / secNum
+        } else if (prior == 'multiply') {
+           answer = firstNum * secNum
+        } else {
+          answer = 'ERROR!'
+        }
+        lcd.innerHTML = answer;
+        console.log(answer);
+    }
+    
+    //ok here's what needs to happen, secNum needs to get triggered at the start of equal sign press, not in the addNBtn function
+    
+
+
+    function addNbtn(input) {
+            
+           
+        num = input.toString();
+           function rtn() {
+               numString += num;
+               lcd.innerHTML = numString;
+            }
+           
+           rtn();
+           
+      }
+      
+      function addPlusbtn() {
+        lcd.innerHTML = ''
+          //numString = '';
+          if (prior === 'none') {
+          firstNum = parseInt(numString, 10);
+            prior = 'plus';
+          }else{
+            secNum = parseInt(numString, 10);
+            prior = 'plus';
+          }
+          numString = '';
+         // lcd.innerHTML = numString;
+      }
+
+      function addMinusbtn() {
+        lcd.innerHTML = ''
+        //numString = '';
+        if (prior === 'none') {
+          firstNum = parseInt(numString, 10);
+            prior = 'minus';
+          }else{
+            secNum = parseInt(numString, 10);
+            prior = 'minus';
+          }
+          numString = '';
+          //lcd.innerHTML = numString;
+      }
+      
+      function addDivbtn() {
+        lcd.innerHTML = ''
+        //numString = '';
+        if (prior === 'none') {
+          firstNum = parseInt(numString, 10);
+            prior = 'division';
+          }else{
+            secNum = parseInt(numString, 10);
+            prior = 'division';
+          }
+          numString = ''; 
+          //lcd.innerHTML = numString;
+      }
+
+      function addMultbtn() {
+        lcd.innerHTML = ''
+        numString = '';
+        if (prior === 'none') {
+          firstNum = parseInt(numString, 10);
+            prior = 'multiply';
+          }else{
+            secNum = parseInt(numString, 10);
+            prior = 'multiply';
+          }
+          numString = '';
+          //lcd.innerHTML = numString;
+      }
+        
+      
+    
+
+    
+    
+</script>
 </html>
