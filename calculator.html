@@ -10,8 +10,8 @@
         <div class = "numRow" id="topRow">
             <button class="fBtn" onclick="addPlusbtn()">+</button>
             <button class="fBtn" onclick="addMinusbtn()">-</button>
-            <button class="fBtn" onclick="addDivbtn()">*</button>
-            <button class="fBtn" onclick="addMultbtn()">/</button>
+            <button class="fBtn" onclick="addDivbtn()">/</button>
+            <button class="fBtn" onclick="addMultbtn()">*</button>
         </div>
         <div class="numRow">
             <button class="numBtn" onclick="addNbtn(1)">1</button>
@@ -42,17 +42,18 @@
     let fnBtn = document.getElementsByClassName('fBtn');
     let nmbrBtn = document.getElementsByClassName('numBtn');
     let eq = document.getElementById('equals');
-    let plus = document.getElementById('addPlusbtn')
+    let plus = document.getElementById('addPlusbtn');
+    let erase = document.getElementById('clear');
     let num = 'start';
     let numString = '';
     let answer='';
     let prior = 'none';
-    let clear = 0;
     let firstNum = 0;
     let secNum = 0;
     let screenString;
 
     eq.addEventListener('click', operatorChart);
+    erase.addEventListener('click', clearIt);
 
     
     function operatorChart(){
@@ -68,10 +69,10 @@
           answer = 'ERROR!'
         }
         lcd.innerHTML = answer;
+        numString = '';
         console.log(answer);
     }
     
-    //ok here's what needs to happen, secNum needs to get triggered at the start of equal sign press, not in the addNBtn function
     
 
 
@@ -82,69 +83,66 @@
            function rtn() {
                numString += num;
                lcd.innerHTML = numString;
+            
+            
             }
            
            rtn();
-           
+           if (prior !== 'none' ) {
+              secNum = parseInt(numString, 10);
+            }
       }
       
       function addPlusbtn() {
         lcd.innerHTML = ''
-          //numString = '';
+         
           if (prior === 'none') {
           firstNum = parseInt(numString, 10);
             prior = 'plus';
-          }else{
-            secNum = parseInt(numString, 10);
-            prior = 'plus';
           }
-          numString = '';
-         // lcd.innerHTML = numString;
+          numString = ''; 
       }
 
       function addMinusbtn() {
         lcd.innerHTML = ''
-        //numString = '';
+        
         if (prior === 'none') {
           firstNum = parseInt(numString, 10);
             prior = 'minus';
-          }else{
-            secNum = parseInt(numString, 10);
-            prior = 'minus';
           }
           numString = '';
-          //lcd.innerHTML = numString;
+          
       }
       
       function addDivbtn() {
         lcd.innerHTML = ''
-        //numString = '';
+        
         if (prior === 'none') {
           firstNum = parseInt(numString, 10);
             prior = 'division';
-          }else{
-            secNum = parseInt(numString, 10);
-            prior = 'division';
           }
           numString = ''; 
-          //lcd.innerHTML = numString;
+          
       }
 
       function addMultbtn() {
         lcd.innerHTML = ''
-        numString = '';
+    
         if (prior === 'none') {
           firstNum = parseInt(numString, 10);
             prior = 'multiply';
-          }else{
-            secNum = parseInt(numString, 10);
-            prior = 'multiply';
           }
           numString = '';
-          //lcd.innerHTML = numString;
       }
         
-      
+     function clearIt() {
+       numString = '';
+       firstNum = '';
+       secNum = '';
+       answer = '';
+       lcd.innerHTML = '';
+       console.log('this is working')
+     } 
     
 
     
